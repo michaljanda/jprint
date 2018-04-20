@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class UserService {
@@ -21,7 +22,9 @@ export class UserService {
   }
 
   isLoggedIn() {
-    return this.http.post<string>('api/login', {auth: this.auth});
+    return this.http.post<string>('api/login', {auth: this.auth}).subscribe(res => {
+      this.auth = res;
+    });
   }
 
 }

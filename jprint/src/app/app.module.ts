@@ -21,11 +21,15 @@ import { ListComponent } from './list/list.component';
     ListComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    HttpClientModule,
-    AppRoutingModule
+    HttpClientModule
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

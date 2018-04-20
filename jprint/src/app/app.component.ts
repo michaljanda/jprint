@@ -13,8 +13,7 @@ export class AppComponent {
   constructor(
     private userService: UserService
   ) {
-    this.loggedIn = this.userService.isLoggedIn()
+    console.log('test');
+    this.userService.isLoggedIn();
   }
-
-  title = 'app';
 }

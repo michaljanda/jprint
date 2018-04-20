@@ -21,7 +21,7 @@ export class UserService {
   }
 
   isLoggedIn() {
-    return this.auth !== '';
+    return this.http.post<string>('api/login', {auth: this.auth});
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Credentials} from "../classes/credentials";
 import {UserService} from "../user.service";
 import {Router} from "@angular/router";
@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnInit {
 
   credentials: Credentials;
+  failed: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {
     this.credentials = {username: '', password: ''};
@@ -20,9 +21,12 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log('calling');
+    this.failed = false;
+    console.log('logging');
     this.userService.login(this.credentials.username, this.credentials.password).subscribe(() => {
-        this.router.navigate(['/app']);
+      this.router.navigate(['/app']);
+    }, () => {
+        this.failed = true;
     });
   }
 

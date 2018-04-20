@@ -12,6 +12,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ListComponent } from './list/list.component';
 import {FormsModule} from "@angular/forms";
+import {JiraService} from "./jira.service";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {FormsModule} from "@angular/forms";
   providers: [
     UserService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    JiraService
     ],
   bootstrap: [AppComponent]
 })

@@ -14,10 +14,14 @@ export class UserService {
     return this.auth;
   }
 
-  login(userName: string, password: string): void {
-    this.http.post<string>('api/login', {auth: btoa(userName + ':' + password)}).subscribe(res => {
+  login(userName: string, password: string) {
+    return this.http.post<string>('api/login', {auth: btoa(userName + ':' + password)}).subscribe(res => {
       this.auth = res;
     });
+  }
+
+  isLoggedIn() {
+    return this.auth !== '';
   }
 
 }

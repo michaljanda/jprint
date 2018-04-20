@@ -8,11 +8,12 @@ import {UserService} from "./user.service";
 })
 export class AppComponent {
 
+  loggedIn: boolean;
 
   constructor(
     private userService: UserService
   ) {
-    this.userService.login("jandam", "Drag1802");
+    this.loggedIn = this.userService.isLoggedIn()
   }
 
   title = 'app';

@@ -8,12 +8,9 @@ import {UserService} from "./user.service";
 })
 export class AppComponent {
 
-  loggedIn: boolean;
-
   constructor(
     private userService: UserService
   ) {
-    console.log('test');
     this.userService.isLoggedIn();
   }
 }

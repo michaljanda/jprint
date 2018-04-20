@@ -11,6 +11,7 @@ import {JwtInterceptor} from "./interceptors/jwt.interceptor";
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ListComponent } from './list/list.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ListComponent } from './list/list.component';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     UserService,

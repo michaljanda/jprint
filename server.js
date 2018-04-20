@@ -45,10 +45,10 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-app.get('/api/search', (req, res) => {
+app.get('/api/search/:query', (req, res) => {
     let jira = getJira(req, res);
     if (jira) {
-        jira.search.search({jql: 'dsprint%20%3D%201860'}, getProcessFn(res));
+        jira.search.search({jql: req.params.query}, getProcessFn(res));
     }
 });
 

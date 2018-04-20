@@ -9,6 +9,8 @@
       <input type="password" [(ngModel)]="credentials.password" name="password" class="form-control" id="passwordId" placeholder="Password">
     </div>
     <div [hidden]="!failed" class="alert alert-danger">Login failed. Verify username or password.</div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">
+      Login <i [hidden]="!loggingIn" class="fa fa-spin fa-spinner"></i>
+    </button>
   </form>
 

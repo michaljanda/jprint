@@ -25,9 +25,7 @@ export class PaperComponent implements OnInit {
   }
 
   getFields() {
-    return _.filter(this.fields, (f) => {
-        return !f.hidden;
-    });
+    return _.filter(this.fields, {show: true});
   }
 
 }

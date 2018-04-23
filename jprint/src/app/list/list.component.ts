@@ -14,7 +14,8 @@ export class ListComponent implements OnInit {
   public tasks = [];
 
   public fields = [
-    {name: 'C', review: true}, {name: 'UT', review: true}, {name: 'DOC', review: true}, {name: 'T', review: true}, {name: 'RN', review: true}, {name: 'SD'}, {name: 'A'}
+    {name: 'C', review: true, show: true}, {name: 'UT', review: true, show: true}, {name: 'DOC', review: true, show: true},
+    {name: 'T', review: true, show: true}, {name: 'RN', review: true, show: true}, {name: 'SD', show: true}, {name: 'A', show: true}
   ];
 
   constructor(private jiraService: JiraService) {

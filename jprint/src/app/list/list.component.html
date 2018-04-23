@@ -1,8 +1,10 @@
 <form (ngSubmit)="onLoad()" name="queryForm" class="margin-bottom-10 no-print">
   <div class="form-group">
-    <label for="queryId">Query</label>
     <input type="text" [(ngModel)]="query" name="query" class="form-control" id="queryId" placeholder="Query">
-    <small id="emailHelp" class="form-text text-muted">key in (OAM-4958, OAM-4863)</small>
+    <small id="emailHelp" class="form-text text-muted">
+      Where should I get the query? For example, select multiple issues in JIRA, click with right button -> <b>view in issue navigator</b>.
+      E.g. key in (OAM-4958, OAM-4863). Print? <b>CTRL + P</b>. Suggested print options are Google chrome, landscape, minimum margins.
+    </small>
   </div>
 
   <div class="alert alert-danger" [hidden]="!errMsg">{{ errMsg }}</div>
@@ -11,6 +13,26 @@
     Load <i [hidden]="!loading" class="fa fa-spin fa-spinner"></i>
   </button>
 </form>
+
+<div class="margin-bottom-10 no-print">
+  <p>You can configure fields to show.</p>
+  <table class="table table-bordered check-table ">
+    <tbody>
+    <tr>
+      <td><b>Ready</b></td>
+      <td *ngFor="let f of fields ">
+        <input type="checkbox" [(ngModel)]="f.show"> {{f.name}}
+      </td>
+    </tr>
+    <tr>
+      <td><b>Review</b></td>
+      <td *ngFor="let f of fields ">
+        <input [disabled]="!f.show" type="checkbox" [(ngModel)]="f.review"> {{f.name}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
 <div class="row paper-list">
   <div class="col-6" *ngFor="let t of tasks">

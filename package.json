@@ -13,6 +13,7 @@
     "express": "4.16.3",
     "jira-connector": "2.7.0",
     "lodash": "4.17.5",
+    "path": "0.12.7",
     "serve-static": "1.13.2"
   }
 }

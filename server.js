@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jiraC = require('./backend/jira');
 const _ = require('lodash');
+const path = require('path');
 
 
 const app = express();
 app.use(bodyParser.json());
-const port = 5000;
+const port = 8080;
 
 /**
  * @param req
@@ -39,6 +40,7 @@ function getProcessFn(res) {
     }
 }
 
+
 app.post('/api/login', (req, res) => {
     let jira = getJira(req, res);
     if (jira) {
@@ -53,4 +55,14 @@ app.get('/api/search/:query', (req, res) => {
     }
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.use(express.static(path.join(__dirname, 'jprint/dist')));
+
+// Send all other requests to the Angular app
+app.get('*', (req, res) => {
+
+    res.sendFile(path.join(__dirname, 'jprint/dist/index.html'));
+});
+
+
+app.listen(port, () => console.log(`Backend listening on port ${port}`));
+

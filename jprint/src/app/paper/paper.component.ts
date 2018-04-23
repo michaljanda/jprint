@@ -28,4 +28,8 @@ export class PaperComponent implements OnInit {
     return _.filter(this.fields, {show: true});
   }
 
+  getStoryPoints() {
+    return this.task.fields.customfield_10002;
+  }
+
 }

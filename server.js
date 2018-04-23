@@ -3,11 +3,21 @@ const bodyParser = require('body-parser');
 const jiraC = require('./backend/jira');
 const _ = require('lodash');
 const path = require('path');
+const argv = require('yargs').argv;
+const https = require('https');
+const fs = require('fs');
 
 
 const app = express();
 app.use(bodyParser.json());
-const port = 8080;
+
+let port = null;
+if (argv.https) {
+    port = 8443;
+} else {
+    port = 8080;
+}
+
 
 /**
  * @param req
@@ -63,6 +73,14 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'jprint/dist/index.html'));
 });
 
-
-app.listen(port, () => console.log(`Backend listening on port ${port}`));
+if (argv.https) {
+    https.createServer({
+        key: fs.readFileSync(argv.https + '.key'),
+        cert: fs.readFileSync(argv.https + '.crt')
+    }, app).listen(port, () => {
+        console.log(`Listening on port ${port}`);
+    });
+} else {
+    app.listen(port, () => console.log(`Listening on port ${port}`));
+}
 

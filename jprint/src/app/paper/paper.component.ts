@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-paper',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaperComponent implements OnInit {
 
+  @Input() task;
+  @Input() fields;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getContent() {
+    return (this.getAcceptanceCriteria() || this.task.fields.description).replace(/(?:\r\n|\r|\n)/g, '<br />');
+  }
+
+  getAcceptanceCriteria() {
+    return this.task.fields.customfield_10101;
+  }
+
+  getFields() {
+    return _.filter(this.fields, (f) => {
+        return !f.hidden;
+    });
   }
 
 }

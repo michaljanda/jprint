@@ -1,3 +1,24 @@
-<p>
-  paper works!
-</p>
+<div class="card">
+  <div class="card-header">
+    <span class="badge badge-primary pull-right">{{task.fields.issuetype.name}}</span>
+    <b>{{task.key}}</b> {{task.fields.summary}}
+  </div>
+  <div class="card-body">
+    <div [innerHTML]="getContent()"></div>
+    <table class="table table-bordered check-table ">
+      <tbody>
+      <tr>
+        <td><b>Ready</b></td>
+        <td *ngFor="let f of getFields() ">{{f.name}}</td>
+      </tr>
+      <tr>
+        <td><b>Review</b></td>
+        <td *ngFor="let f of getFields() ">
+          <span [hidden]="!f.review">{{f.name}}</span>
+          <span [hidden]="f.review">-</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+.paper-list {
+  font-size: 23px;
+
+  .card, .card-body, .card-header {
+    border-color: black !important;
+  }
+
+  .card-body, .card-header {
+    padding: 4px;
+  }
+
+  .card-header {
+    font-size: 25px;
+  }
+
+  .card {
+    height: 350px;
+    overflow: hidden;
+    margin: 3px;
+  }
+
+  .col-6 {
+    padding: 3px !important;
+  }
+
+  .check-table {
+    background: white;
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 8px);
+    margin-bottom: 2px;
+
+    td {
+      padding: 3px !important;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const jiraC = require('./backend/jira');
+const _ = require('lodash');
 
 
 const app = express();
@@ -27,7 +28,7 @@ function getJira(req, res) {
 function getProcessFn(res) {
     return function (error, jiraRes) {
         if (error) {
-            if (error.includes('Unauthorized')) {
+            if (_.isString(error) && error.includes('Unauthorized')) {
                 res.status(401).send(error);
             } else {
                 res.status(500).send(error);

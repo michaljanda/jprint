@@ -1,1 +1,24 @@
+<form (ngSubmit)="onLoad()" name="queryForm" class="margin-bottom-10 no-print">
+  <div class="form-group">
+    <label for="queryId">Query</label>
+    <input type="text" [(ngModel)]="query" name="query" class="form-control" id="queryId" placeholder="Query">
+    <small id="emailHelp" class="form-text text-muted">key in (OAM-4958, OAM-4863)</small>
+  </div>
+
+  <div class="alert alert-danger" [hidden]="!errMsg">{{ errMsg }}</div>
+
+  <button type="submit" class="btn btn-primary">
+    Load <i [hidden]="!loading" class="fa fa-spin fa-spinner"></i>
+  </button>
+</form>
+
+<div class="row paper-list">
+  <div class="col-6" *ngFor="let t of tasks">
+    <app-paper [task]="t" [fields]="fields"></app-paper>
+  </div>
+</div>
+
+
+
+
 

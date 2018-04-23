@@ -8,8 +8,8 @@ export class JiraService {
     private http: HttpClient
   ) { }
 
-  searchIssues() {
-    return this.http.get<any>('api/search');
+  searchIssues(query: string) {
+    return this.http.get<any>('api/search/' + query);
   }
 
 }

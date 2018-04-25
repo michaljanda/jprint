@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {JiraService} from "../jira.service";
+import * as _ from 'lodash';
+
 
 @Component({
   selector: 'app-list',
@@ -12,6 +14,7 @@ export class ListComponent implements OnInit {
   public loading: boolean = false;
   public errMsg = null;
   public tasks = [];
+  public taskOpts = {description: true};
 
   public fields = [
     {name: 'C', review: true, show: true}, {name: 'UT', review: true, show: true}, {name: 'DOC', review: true, show: true},
@@ -24,6 +27,17 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  clearInput() {
+    this.query = '';
+  }
+
+  toggleFields() {
+    let newState = !this.fields[0].show;
+    _.forEach(this.fields, function (f) {
+        f.show = newState;
+    });
   }
 
   onLoad() {

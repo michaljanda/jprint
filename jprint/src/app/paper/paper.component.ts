@@ -10,6 +10,7 @@ export class PaperComponent implements OnInit {
 
   @Input() task;
   @Input() fields;
+  @Input() opts;
 
   constructor() { }
 
@@ -17,7 +18,11 @@ export class PaperComponent implements OnInit {
   }
 
   getContent() {
-    return (this.getAcceptanceCriteria() || this.task.fields.description).replace(/(?:\r\n|\r|\n)/g, '<br />');
+    let content = this.getAcceptanceCriteria();
+    if (!content && this.opts.description) {
+      content = this.task.fields.description;
+    }
+    return (content || '').replace(/(?:\r\n|\r|\n)/g, '<br />');
   }
 
   getAcceptanceCriteria() {

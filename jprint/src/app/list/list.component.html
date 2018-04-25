@@ -1,43 +1,57 @@
-<form (ngSubmit)="onLoad()" name="queryForm" class="margin-bottom-10 no-print">
-  <div class="form-group">
-    <input type="text" [(ngModel)]="query" name="query" class="form-control" id="queryId" placeholder="Query">
-    <small id="emailHelp" class="form-text text-muted">
-      Where should I get the query? For example, select multiple issues in JIRA, click with right button -> <b>view in issue navigator</b>.
-      Then the query is the text in field you see on the top.
-      E.g. key in (OAM-4958, OAM-4863). Print? <b>CTRL + P</b>. Suggested print options are Google chrome, landscape, minimum margins.
-    </small>
+<div class="no-print">
+  <form (ngSubmit)="onLoad()" name="queryForm" class="margin-bottom-10">
+    <div class="form-group">
+
+      <div class="input-group">
+        <input type="text" [(ngModel)]="query" name="query" class="form-control" id="queryId" placeholder="Query">
+        <div class="input-group-append">
+          <span class="input-group-text" (click)=" clearInput() ">Clear</span>
+        </div>
+      </div>
+
+      <small id="emailHelp" class="form-text text-muted">
+        Where should I get the query? For example, select multiple issues in JIRA, click with right button -> <b>view in issue navigator</b>.
+        Then the query is the text in field you see on the top.
+        E.g. key in (OAM-4958, OAM-4863). Print? <b>CTRL + P</b>. Suggested print options are Google chrome, landscape, minimum margins.
+      </small>
+    </div>
+
+    <div class="alert alert-danger" [hidden]="!errMsg">{{ errMsg }}</div>
+
+    <button type="submit" class="btn btn-primary">
+      Load <i [hidden]="!loading" class="fa fa-spin fa-spinner"></i>
+    </button>
+  </form>
+
+  <div class="margin-bottom-10">
+    <p>You can configure fields to show. <a class="text-primary" (click)="toggleFields()">Toggle visibility</a>.</p>
+    <table class="table table-bordered check-table ">
+      <tbody>
+      <tr>
+        <td><b>Ready</b></td>
+        <td *ngFor="let f of fields ">
+          <input type="checkbox" [(ngModel)]="f.show"> {{f.name}}
+        </td>
+      </tr>
+      <tr>
+        <td><b>Review</b></td>
+        <td *ngFor="let f of fields ">
+          <input [disabled]="!f.show" type="checkbox" [(ngModel)]="f.review"> {{f.name}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="alert alert-danger" [hidden]="!errMsg">{{ errMsg }}</div>
-
-  <button type="submit" class="btn btn-primary">
-    Load <i [hidden]="!loading" class="fa fa-spin fa-spinner"></i>
-  </button>
-</form>
-
-<div class="margin-bottom-10 no-print">
-  <p>You can configure fields to show.</p>
-  <table class="table table-bordered check-table ">
-    <tbody>
-    <tr>
-      <td><b>Ready</b></td>
-      <td *ngFor="let f of fields ">
-        <input type="checkbox" [(ngModel)]="f.show"> {{f.name}}
-      </td>
-    </tr>
-    <tr>
-      <td><b>Review</b></td>
-      <td *ngFor="let f of fields ">
-        <input [disabled]="!f.show" type="checkbox" [(ngModel)]="f.review"> {{f.name}}
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="margin-bottom-10">
+    <input type="checkbox" id="idDescription" [(ngModel)]="taskOpts.description">
+    <label for="idDescription">Show description when there are no acceptance criteria</label>
+  </div>
 </div>
 
 <div class="row paper-list">
   <div class="col-6" *ngFor="let t of tasks">
-    <app-paper [task]="t" [fields]="fields"></app-paper>
+    <app-paper [task]="t" [fields]="fields" [opts]="taskOpts"></app-paper>
   </div>
 </div>
 

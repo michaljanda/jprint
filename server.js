@@ -18,6 +18,11 @@ if (argv.https) {
     port = 8080;
 }
 
+if (!argv.host) {
+    throw new Error('Missing host argument. Example: --host some.domain.com/jira');
+}
+let host = argv.host;
+
 
 /**
  * @param req
@@ -26,7 +31,7 @@ if (argv.https) {
  */
 function getJira(req, res) {
     try {
-        return jiraC(req.headers.authorization);
+        return jiraC(req.headers.authorization, host);
     } catch (error) {
         if (error.message === 'Missing \'username\' property.') {
             res.status(401).send({msg: error.message});
